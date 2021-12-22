@@ -41,8 +41,21 @@ There is not much cleaning required in this dataset since the data is already cl
   
 In addition, I have to determine an effective way to split the train and test sets so that the train dataset is balanced and appropriate for the modeling step. First, I split the dataset into 70:30 with 70% for train dataset and 30% for test dataset. Next, I apply under-sampling majority class method due to the highly skewed dataset. This method balances classes in the train dataset so that there are 5725 observations in each class or 50:50 split among classes 0 and 1. Balancing dataset is important in machine learning as feeding imbalanced data to classifier model can make it biased in favor of the majority class, simply because it did not have enough data to learn about the minority.
 
+## IV. Modeling
+### A. Logistic Regression
+Logistic Regression is a classification technique used in machine learning. It uses a sigmoid function to model the dependent variable and is bounded between 0 and 1. The objective of the sigmoid function is to minimize the loss function which is a measure of how wrong the model is in terms of its ability to estimate the relationship between x and y.
+
+I used the Logistic Regression to model the relationship between the dependent variable - isFraud and the independent variables - type, amount, oldbalanceOrg, newbalanceOrig, oldbalanceDest, newbalanceDest, and hour. The result of the logistic regression model is shown below:
+
+<p align="center"><img width="912" alt="Screen Shot 2021-12-22 at 3 57 25 PM" src="https://user-images.githubusercontent.com/93355594/147154239-865068cd-4687-451d-a29c-03a6f2ca621f.png">
+  
+Logistic Regression is easy to implement, interpret, and very efficient to train. It is very fast at classifying unknown records. Additionally, the model coefficients can be interpreted as indicators of feature importance. However, this machine learning algorithm has the tendency to underfit and requires an assumption of linearity between the dependent variable and the independent variables and between the independent variables and the log odds. Since it is important to accurately predict fraudulent transactions as incorrect predictions will create customer friction and produce uncessary constraints for legitimate transactions, I will utilize complex models that are more powerful.
+  
+### B. Decision Tree
+
 While undersampling helps reduce the risk of machine learning algorithms skewing toward the majority class and offers less storage requirements and better run times for analyses, this method may drop potentially important information or cause the sample of the majority class chosen to be biased and not representative of real world data. In order to improve the sampling method, a combination of both undersampling and oversampling can be implemented to obtain the most lifelike dataset and accurate results. 
   
+
 
 
 
