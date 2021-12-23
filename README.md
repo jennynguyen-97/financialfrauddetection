@@ -49,9 +49,38 @@ I used the Logistic Regression to model the relationship between the dependent v
 
 <p align="center"><img width="912" alt="Screen Shot 2021-12-22 at 3 57 25 PM" src="https://user-images.githubusercontent.com/93355594/147154239-865068cd-4687-451d-a29c-03a6f2ca621f.png">
   
-Logistic Regression is easy to implement, interpret, and very efficient to train. It is very fast at classifying unknown records. Additionally, the model coefficients can be interpreted as indicators of feature importance. However, this machine learning algorithm has the tendency to underfit and requires an assumption of linearity between the dependent variable and the independent variables and between the independent variables and the log odds. Since it is important to accurately predict fraudulent transactions as incorrect predictions will create customer friction and produce uncessary constraints for legitimate transactions, I will utilize complex models that are more powerful.
+Logistic Regression is easy to implement, interpret, and very efficient to train. It is very fast at classifying unknown records. Additionally, the model coefficients can be interpreted as indicators of feature importance. However, this machine learning algorithm has the tendency to underfit and requires an assumption of linearity between the dependent variable and the independent variables and between the independent variables and the log odds. Since it is important to accurately predict fraudulent transactions as incorrect predictions will create customer friction and produce uncessary constraints for legitimate transactions, I will utilize machine learning models that do not assume linearity between variables and complex models that are more powerful.
   
 ### B. Decision Tree
+Decision Tree is also a type of supervised machine learning where the data is continuously split according to a certain parameter. The tree can be explained by two entities, namely decision nodes and leaves. Decision nodes are where the data is split and leaves are the decisions or the final outcomes. As the Decision Tree depicted, the financial fraud dataset is first splitted by type, then other variables such as amount, oldbalanceOrg, and newbalanceOrig are considered in subsequent splits.
+
+<p align="center"><img width="629" alt="Screen Shot 2021-12-23 at 9 52 12 AM" src="https://user-images.githubusercontent.com/93355594/147256973-3595e590-8e11-4afe-a4f5-3908dc851a00.png">
+  
+Decision Tree is beneficial in that it requires minimal data cleaning and scaling in the pre-processing step and takes into consideration non-linear parameters. Another added benefit of this model is that its result is clearly visualized and can be easily interpreted by both technical and non-technical audience. While Decision Tree is robust to outliers and missing data, it is highly sensitive to new data points. Adding a new data point can lead to re-generation of the overall tree and all nodes need to be recalculated and recreated. Additionally, Decision Tree is prone to overfitting as in the process of fitting the data (even noisy data), it keeps generating new nodes and ultimately the model becomes too complex to interpret. In this way, it loses its generalization capabilities, performing well on the train dataset but starts making a lot of mistakes on the unseen data.
+
+### C. Random Forest
+Next, we will consider Random Forest which is a bagging technique that combines many decision trees. Random Forest reduces the complexity of Decision Tree by taking the average (in case of regression problems) or the majority (in case of classification problems) of the output from various trees. As a result, overfitting is reduced and precision is increased. Random Forest also inherits advantages of Decision Tree such as less susceptible to outliers and missing values, effeciently handle non-linearity, and minimal pre-processing requirements. Despite these advantages, Random Forest is typically more computationally intense than Decision Tree and can not be easily interpreated. The interpretability of individual trees is lost when they are combined together in a Random Forest model.
+  
+### D. XGBoost
+While both XGBoost and Random Forest are ensemble learning methods in machine learning, each has their own differences. Random Forest aims to reduce the complexity of models that overfit the training data. In contrast, XGBoost is an approach to increase the complexity of models that suffer from high bias, that is, models that underfit the training data. Consequently, while Random Forest reduces overfitting, XGBoost may increase it. Additionally, tree models in Random Forest are built independently, tree models are not independent in XGBoost where the machine learning algorithm tries to add new models that do well where previous models fail. Both methods are weighted averages of a combination of trees; however, Random Forest assigns equal weighting while XGBoost assigns higher weights to models that perform well on the train dataset.
+  
+There are more data pre-processing in XGBoost than in Random Forest. Before modeling, I have to specifically divide the train dataset into data (independent variables) and label (dependent variables). In order to avoid overfitting, I set a parameter named early_stopping_rounds to 50 in which XGBoost will stop early if there is no improvement in learning. Additionally, I use xgmodel$best_iteration to find the optimal nrounds which is the number of decision trees in the final model to be 2290.
+  
+## V. Evaluation
+Since the train dataset is balanced, I do not need to consider metrics that take into account the imbalance of the dataset. I will use four metrics for model evaluation:
+  1. Accuracy: measures the number of classifications a model correctly predicts
+  2. Area under the curve (AUC): measures the ability of a classifier to distinguish between classes  
+  3. False Positive Rate (FPR): measures the percentage of false positives in each model. I do not want a high FPR as it will reduce customer satisfaction and increase customer fraction in using our mobile money app.
+  4. False Negative Rate (FNR): measures the percentage of false negatives in each model. Since the cost of undetected fraud is high, I want my model to correctly detect fraudulent transactions in order to implement preventive methods.
+
+The performance of four above-mentioned models according to four performance criterias is listed below:
+
+<p align="center"><img width="581" alt="Screen Shot 2021-12-23 at 11 59 52 AM" src="https://user-images.githubusercontent.com/93355594/147271213-7f9089d1-13e3-486a-aa41-affc8c32dde6.png">
+
+XGBoost outperforms other models on all four metrics, suggesting its high precision and generalization on future unseen data. Consequently, I choose XGBoost as the final model to perform predictions on the train dataset. I also rank feature importance based on XGBoost. As the graph indicates,  oldbalanceOrg, newbalanceOrig, amount, and type provide high informational gains; this finding is consistent with decision nodes in the decision tree model.
+  
+<p align="center"><img width="603" alt="Screen Shot 2021-12-23 at 12 04 27 PM" src="https://user-images.githubusercontent.com/93355594/147271629-4819779d-2449-4551-a3d0-dc5c408daf54.png">
+
 
 While undersampling helps reduce the risk of machine learning algorithms skewing toward the majority class and offers less storage requirements and better run times for analyses, this method may drop potentially important information or cause the sample of the majority class chosen to be biased and not representative of real world data. In order to improve the sampling method, a combination of both undersampling and oversampling can be implemented to obtain the most lifelike dataset and accurate results. 
   
