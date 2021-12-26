@@ -13,7 +13,7 @@ Due to the increasingly sophisticated and costly frauds, the financial services 
 ### A. Data Overview
 The dataset used in this project is from [Kaggle - Paysim synthetic financial dataset for fraud detection](https://www.kaggle.com/arjunjoshua/predicting-fraud-in-financial-payment-services/data). Paysim provided synthetic data for mobile money transactions in a one month period. This dataset contains 11 attributes and roughly 6.3 million observations. There is no null value in the dataset so it does not require data cleaning. A summary of variable characteristics is provided below:
 
-<p align="center"><img width="579" alt="Screen Shot 2021-12-21 at 6 45 03 PM" src="https://user-images.githubusercontent.com/93355594/147011796-eef8ab41-77e3-471a-b680-3ae85b54dfa6.png">
+<p align="center"><img width="579" alt="Screen Shot 2021-12-26 at 3 13 01 PM" src="https://user-images.githubusercontent.com/93355594/147419048-c8f1a622-2f88-43e7-af9b-61730a572afe.png">
 
 <p align="center"><img width="911" alt="Screen Shot 2021-12-21 at 6 56 01 PM" src="https://user-images.githubusercontent.com/93355594/147013424-718daaf1-fd1b-4ff4-bfca-7b20eb0299a8.png">
   
@@ -75,7 +75,7 @@ Since the train dataset is balanced, I do not need to consider metrics that take
 
 The performance of four above-mentioned models according to four performance criterias is listed below:
 
-<p align="center"><img width="581" alt="Screen Shot 2021-12-23 at 11 59 52 AM" src="https://user-images.githubusercontent.com/93355594/147271213-7f9089d1-13e3-486a-aa41-affc8c32dde6.png">
+<p align="center"><img width="579" alt="Screen Shot 2021-12-26 at 3 13 15 PM" src="https://user-images.githubusercontent.com/93355594/147419058-b18cf00e-61cf-4f8b-aa2a-46eb41db0cf1.png">
 
 XGBoost outperforms other models on all four metrics, suggesting its high precision and generalization on future unseen data. Consequently, I choose XGBoost as the final model to perform predictions on the train dataset. I also rank feature importance based on XGBoost. As the graph indicates,  oldbalanceOrg, newbalanceOrig, amount, and type provide high informational gains; this finding is consistent with decision nodes in the decision tree model.
   
